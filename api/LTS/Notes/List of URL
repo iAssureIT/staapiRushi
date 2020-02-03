@@ -1,0 +1,32 @@
+POST:  /login                       
+POST: /signup                       
+PATCH: /forgotpassword               
+PATCH: /otpValidation                
+GET:  /list-of-users                
+PATCH: /status-user 
+PATCH: /role-user 
+PATCH: /edit-user  
+PATCH: /inactivate-user 
+DELETE: /delete-user (delete only inactive-users)
+
+GET: /list--of-roles 
+POST: /create-role 
+PATCH: /edit-role 
+DELETE: /delete-role (While deleting a role, show all users with that role and a warning message.)
+POST: /create-notification-template 
+GET: /list-of-notification-templates 
+GET: /notification-template/:ID 
+PATCH: /edit-notification-template/:ID 
+DELETE: /delete-notification-template/:ID
+
+GET: /show-inapp-notifications
+
+POST: /insert-basic-info 
+PATCH: /add-company-locations 
+PATCH: /delete-company-locations 
+GET: /list-all-company-locations
+
+POST: /create-new-property 
+PATCH: /edit-property 
+GET: /proferty-profile/:ID 
+GET: /list-of-all-properties/:category
