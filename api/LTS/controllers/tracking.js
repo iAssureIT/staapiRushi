@@ -1,5 +1,5 @@
 const mongoose	= require("mongoose");
-
+var moment              = require('moment');
 const Tracking = require('../models/tracking');
 var ObjectId = require('mongodb').ObjectID;
 
@@ -13,7 +13,7 @@ exports.start_location_details = (req,res,next)=>{
                                     longitude    : req.body.startLocation.longitude,
                                 },
         userId              : req.body.userId,
-        createdAt           : new Date()
+        createdAt           : moment(new Date()).format("YYYY-MM-DD"),
     });
     tracking.save()
         .then(data=>{
@@ -118,9 +118,8 @@ exports.end_location_details = (req,res,next)=>{
 
 
 exports.get_daywise_location_details = (req,res,next)=>{
-    var date = new Date(req.params.date)
-    console.log("req.params=>",date)
-    Tracking.findOne({userId:req.params.userId,createdAt:new Date(date)})
+    console.log("req.params=>",req.params.date);
+    Tracking.findOne({userId:req.params.userId,createdAt:req.params.date})
         .then(data=>{
             res.status(200).json(data);
         })
