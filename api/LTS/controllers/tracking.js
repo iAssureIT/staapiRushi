@@ -119,7 +119,7 @@ exports.end_location_details = (req,res,next)=>{
 
 exports.get_daywise_location_details = (req,res,next)=>{
     console.log("req.params=>",req.params.date);
-    Tracking.findOne({"userId":ObjectId(req.params.userId)})
+    Tracking.findOne({"userId":ObjectId(req.params.userId),createdAt:req.params.date})
         .then(data=>{
             console.log("data",data);
             if(data!==null){
