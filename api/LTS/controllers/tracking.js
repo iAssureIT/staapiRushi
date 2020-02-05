@@ -125,7 +125,7 @@ exports.get_daywise_location_details = (req,res,next)=>{
             if(data!==null){
                 res.status(200).json(data);
             }else{
-                res.status(200).json("Data not found");
+                res.status(200).json("LOCATION_DETAILS_NOT_FOUND");
             }
         })
         .catch(err =>{
