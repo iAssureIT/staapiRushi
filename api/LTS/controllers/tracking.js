@@ -118,8 +118,9 @@ exports.end_location_details = (req,res,next)=>{
 
 
 exports.get_daywise_location_details = (req,res,next)=>{
-    console.log("req.params=>",req.params)
-    Tracking.findOne({userId:req.params.userId,createdAt:new Date(req.params.date)})
+    var date = new Date(req.params.date)
+    console.log("req.params=>",date)
+    Tracking.findOne({userId:req.params.userId,createdAt:new Date(date)})
         .then(data=>{
             res.status(200).json(data);
         })
