@@ -12,7 +12,7 @@ const trackingSchema = mongoose.Schema({
     routeCoordinates        : Array,
     distanceTravelled       : Number,
     totalTime               : String,
-    createdAt               : Date,
+    createdAt               : String,
 });
 
 module.exports = mongoose.model('tracking',trackingSchema);
