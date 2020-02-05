@@ -121,7 +121,8 @@ exports.get_daywise_location_details = (req,res,next)=>{
     console.log("req.params=>",req.params.date);
     Tracking.findOne({userId:req.params.userId,createdAt:req.params.date})
         .then(data=>{
-            if(data){
+            console.log("data",data);
+            if(data!==null){
                 res.status(200).json(data);
             }else{
                 res.status(200).json("Data not found");
