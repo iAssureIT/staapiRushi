@@ -114,3 +114,18 @@ exports.end_location_details = (req,res,next)=>{
         });
   
 };
+
+
+
+exports.get_daywise_location_details = (req,res,next)=>{
+    Tracking.findOne({userId:req.params.userId,createdAt:req.params.date})
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err =>{
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
