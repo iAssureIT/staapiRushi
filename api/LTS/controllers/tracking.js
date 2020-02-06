@@ -18,7 +18,7 @@ exports.start_location_details = (req,res,next)=>{
     });
     tracking.save()
         .then(data=>{
-            res.status(200).json("Start Details Added");
+            res.status(200).json({"tracking_id"    : data._id});
         })
         .catch(err =>{
             console.log(err);
@@ -30,7 +30,7 @@ exports.start_location_details = (req,res,next)=>{
 
 
 exports.get_location_details = (req,res,next)=>{
-    Tracking.findOne({userId:req.params.userId})
+    Tracking.findOne({_id:req.params.tracking_id})
         .then(data=>{
             res.status(200).json(data);
         })
@@ -45,7 +45,7 @@ exports.get_location_details = (req,res,next)=>{
 
 exports.update_routeCoordinates = (req,res,next)=>{
     Tracking.updateOne(
-        { "userId" : ObjectId(req.body.userId)},
+        { _id : ObjectId(req.body.tracking_id)},
         {
             $push : {
                 "routeCoordinates" : req.body.routeCoordinates,
@@ -72,7 +72,7 @@ exports.end_location_details = (req,res,next)=>{
             { 
                 $match :  
                 { 
-                    "userId" : ObjectId(req.body.userId)
+                    "_id" : ObjectId(req.body.tracking_id)
                 } 
             },
             {
@@ -90,7 +90,7 @@ exports.end_location_details = (req,res,next)=>{
     .then(data=>{
         console.log("data",data[0].totalTime)
         Tracking.updateOne(
-        { "userId" : ObjectId(req.body.userId)},
+        { "_id" : ObjectId(req.body.tracking_id)},
         {
             $set : {
                 "totalTime"      : data[0].totalTime,
@@ -119,7 +119,7 @@ exports.end_location_details = (req,res,next)=>{
 
 
 exports.get_daywise_location_details = (req,res,next)=>{
-    Tracking.find({})
+    Tracking.find({"userId":req.params.userId})
         .then(data=>{
             res.status(200).json(data);
         })
