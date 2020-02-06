@@ -13,7 +13,8 @@ exports.start_location_details = (req,res,next)=>{
                                     longitude    : req.body.startLocation.longitude,
                                 },
         userId              : req.body.userId,
-        createdAt           : moment(new Date()).format("YYYY-MM-DD"),
+        createdAt           : new Date(),
+        createdAtStr        : moment(new Date()).format("YYYY-MM-DD"),
     });
     tracking.save()
         .then(data=>{
@@ -119,7 +120,7 @@ exports.end_location_details = (req,res,next)=>{
 
 exports.get_daywise_location_details = (req,res,next)=>{
     console.log("req.params=>",req.params.date);
-    Tracking.findOne({"userId":ObjectId(req.params.userId),createdAt:req.params.date})
+    Tracking.findOne({"userId":ObjectId(req.params.userId),createdAtStr:req.params.date})
         .then(data=>{
             console.log("data",data);
             if(data!==null){
