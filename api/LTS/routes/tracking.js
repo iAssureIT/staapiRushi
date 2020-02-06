@@ -6,7 +6,7 @@ router.post('/post/startDetails',TrackingController.start_location_details);
 
 router.get('/get/startDetails/:userId',TrackingController.get_location_details);
 
-router.get('/get/daywiseLocationDetails/:userId/:date',TrackingController.get_daywise_location_details);
+router.get('/get/daywiseLocationDetails',TrackingController.get_daywise_location_details);
 
 router.patch('/patch/routeCoordinates',TrackingController.update_routeCoordinates);
 
