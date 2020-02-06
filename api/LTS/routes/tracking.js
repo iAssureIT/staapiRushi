@@ -4,7 +4,7 @@ const TrackingController = require('../controllers/tracking');
 
 router.post('/post/startDetails',TrackingController.start_location_details);
 
-router.get('/get/startDetails/:trackingId',TrackingController.get_location_details);
+router.get('/get/startDetails/:tracking_id',TrackingController.get_location_details);
 
 router.get('/get/daywiseLocationDetails/:userId',TrackingController.get_daywise_location_details);
 

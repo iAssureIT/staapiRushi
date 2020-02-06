@@ -30,6 +30,7 @@ exports.start_location_details = (req,res,next)=>{
 
 
 exports.get_location_details = (req,res,next)=>{
+    console.log("req.params.tracking_id",req.params.tracking_id);
     Tracking.findOne({_id:req.params.tracking_id})
         .then(data=>{
             res.status(200).json(data);
