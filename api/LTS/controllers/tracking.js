@@ -35,6 +35,7 @@ exports.get_location_details = (req,res,next)=>{
         .then(data=>{
             res.status(200).json(data);
         })
+        .exec()
         .catch(err =>{
             console.log(err);
             res.status(500).json({
@@ -55,6 +56,7 @@ exports.update_routeCoordinates = (req,res,next)=>{
                 "distanceTravelled"    : req.body.distanceTravelled
             }
         })
+        .exec()
         .then(data=>{
             res.status(200).json(data);
         })
@@ -87,7 +89,7 @@ exports.end_location_details = (req,res,next)=>{
             },
 
         ])
-
+    .exec()
     .then(data=>{
         console.log("data",data[0].totalTime)
         Tracking.updateOne(
@@ -120,7 +122,10 @@ exports.end_location_details = (req,res,next)=>{
 
 
 exports.get_daywise_location_details = (req,res,next)=>{
-    Tracking.find({"userId":req.params.userId})
+    Tracking
+        .find({"userId":req.params.userId})
+        .sort({createdAt : -1})
+        .exec()
         .then(data=>{
             res.status(200).json(data);
         })
