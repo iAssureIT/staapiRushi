@@ -50,7 +50,7 @@ exports.update_routeCoordinates = (req,res,next)=>{
 
     main();
     async function main(){
-        var totalDistanceTravelled   = await totalDistance(req.body.distanceTravelled);
+        var totalDistanceTravelled   = await totalDistance(req.body.tracking_id,req.body.distanceTravelled);
         console.log("totalDistanceTravelled=>",totalDistanceTravelled)
         Tracking.updateOne(
             { _id : ObjectId(req.body.tracking_id)},
@@ -76,21 +76,27 @@ exports.update_routeCoordinates = (req,res,next)=>{
 };
 
 
-function totalDistance(newDistance){
+function totalDistance(tracking_id,newDistance){
     return new Promise(function(resolve,reject){
             Tracking.aggregate([
-              { $unwind: "$routeCoordinates" },
-              {
-                $group: {
-                  _id: null,
-                  distance: { $sum: "$routeCoordinates.distanceTravelled" }
-                }
+                { 
+                    $match :  
+                        { 
+                            "_id" : ObjectId(req.body.tracking_id)
+                        } 
+                },
+                { $unwind: "$routeCoordinates" },
+                {
+                    $group: {
+                      _id: null,
+                      distance: { $sum: "$routeCoordinates.distanceTravelled" }
+                    }
               }
             ])
             .then(distanceTravelled=>{
                 console.log("distanceTravelled",distanceTravelled[0].distance);
                 console.log("newDistance",newDistance);
-                var totalDistanceTravelled = distanceTravelled.distance + newDistance;
+                var totalDistanceTravelled = distanceTravelled[0].distance + newDistance;
                 resolve(totalDistanceTravelled);
              })
             .catch(err =>{
