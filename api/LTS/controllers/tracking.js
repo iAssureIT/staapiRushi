@@ -82,7 +82,7 @@ function totalDistance(tracking_id,newDistance){
                 { 
                     $match :  
                         { 
-                            "_id" : ObjectId(req.body.tracking_id)
+                            "_id" : ObjectId(tracking_id)
                         } 
                 },
                 { $unwind: "$routeCoordinates" },
