@@ -46,6 +46,8 @@ exports.get_location_details = (req,res,next)=>{
 
 
 exports.update_routeCoordinates = (req,res,next)=>{
+    console.log("re body=>",req.body)
+
     main();
     async function main(){
         var totalDistanceTravelled   = await totalDistanceTravelled(req.body.distanceTravelled);
