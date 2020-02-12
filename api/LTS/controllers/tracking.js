@@ -95,7 +95,7 @@ function totalDistanceTravelled(newDistance){
                 });
             });
     });
-}
+};
 
 exports.end_location_details = (req,res,next)=>{
     console.log("re body=>",req.body)
