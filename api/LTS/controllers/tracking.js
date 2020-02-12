@@ -83,13 +83,14 @@ function totalDistance(newDistance){
               {
                 $group: {
                   _id: null,
-                  distanceTravelled: { $sum: "$routeCoordinates.distanceTravelled" }
+                  distance: { $sum: "$routeCoordinates.distanceTravelled" }
                 }
               }
             ])
             .then(distanceTravelled=>{
                 console.log("distanceTravelled",distanceTravelled);
-                resolve(distanceTravelled);
+                var totalDistanceTravelled = distanceTravelled.distance + newDistance;
+                resolve(totalDistanceTravelled);
              })
             .catch(err =>{
                 res.status(500).json({
