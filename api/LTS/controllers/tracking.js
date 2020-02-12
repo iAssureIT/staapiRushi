@@ -94,7 +94,7 @@ function totalDistance(tracking_id,newDistance){
               }
             ])
             .then(distanceTravelled=>{
-                console.log("distanceTravelled[0].distance",distanceTravelled[0]);
+                console.log("distanceTravelled[0].distance",distanceTravelled);
                 var totalDistanceTravelled = distanceTravelled[0].distance + newDistance;
                 console.log("totalDistanceTravelled",totalDistanceTravelled);
                 resolve(totalDistanceTravelled);
