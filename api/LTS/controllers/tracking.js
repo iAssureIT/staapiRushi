@@ -52,10 +52,6 @@ exports.get_location_details = (req,res,next)=>{
 
 exports.update_routeCoordinates = (req,res,next)=>{
     console.log("re body=>",req.body)
-
-    main();
-    async function main(){
-        var totalDistanceTravelled   = await totalDistance(req.body.tracking_id,req.body.distanceTravelled);
         console.log("totalDistanceTravelled=>",totalDistanceTravelled)
         Tracking.updateOne(
             { _id : ObjectId(req.body.tracking_id)},
@@ -77,7 +73,6 @@ exports.update_routeCoordinates = (req,res,next)=>{
                     error: err
                 });
             });
-      }      
 };
 
 
