@@ -46,28 +46,56 @@ exports.get_location_details = (req,res,next)=>{
 
 
 exports.update_routeCoordinates = (req,res,next)=>{
-    Tracking.updateOne(
-        { _id : ObjectId(req.body.tracking_id)},
-        {
-            $push : {
-                "routeCoordinates" : req.body.routeCoordinates,
-            },
-            $set : {
-                "distanceTravelled"    : req.body.distanceTravelled
-            }
-        })
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
+    main();
+    async function main(){
+        var totalDistanceTravelled   = await totalDistanceTravelled(req.body.distanceTravelled);
+        console.log("totalDistanceTravelled=>",totalDistanceTravelled)
+        Tracking.updateOne(
+            { _id : ObjectId(req.body.tracking_id)},
+            {
+                $push : {
+                    "routeCoordinates" : req.body.routeCoordinates,
+                },
+                $set : {
+                    "totalDistanceTravelled" : totalDistanceTravelled
+                }
+            })
+            .exec()
+            .then(data=>{
+                res.status(200).json(data);
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
             });
-        });
+      }      
 };
 
+
+function totalDistanceTravelled(newDistance){
+    return new Promise(function(resolve,reject){
+            Tracking.aggregate([
+              { $unwind: "$routeCoordinates" },
+              {
+                $group: {
+                  _id: null,
+                  distanceTravelled: { $sum: "$routeCoordinates.distanceTravelled" }
+                }
+              }
+            ])
+            .then(distanceTravelled=>{
+                var totalDistanceTravelled = distanceTravelled + newDistance;
+                resolve(totalDistanceTravelled);
+             })
+            .catch(err =>{
+                res.status(500).json({
+                    error: err
+                });
+            });
+    });
+}
 
 exports.end_location_details = (req,res,next)=>{
     console.log("re body=>",req.body)
