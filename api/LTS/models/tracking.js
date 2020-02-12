@@ -9,7 +9,7 @@ const trackingSchema = mongoose.Schema({
     							longitude	: Number,
     							latitude	: Number
     },
-    routeCoordinates        : Array,
+    routeCoordinates        : [],
     totalDistanceTravelled  : Number,
     totalTime               : String,
     createdAt               : Date,

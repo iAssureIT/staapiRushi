@@ -12,6 +12,11 @@ exports.start_location_details = (req,res,next)=>{
                                     latitude   : req.body.startLocation.latitude,
                                     longitude    : req.body.startLocation.longitude,
                                 },
+        routeCoordinates    : [{
+                                  latitude   : req.body.startLocation.latitude,
+                                  longitude    : req.body.startLocation.longitude,
+                                  distanceTravelled : 0  
+        }],                       
         userId              : req.body.userId,
         createdAt           : new Date(),
         createdAtStr        : moment(new Date()).format("YYYY-MM-DD"),
