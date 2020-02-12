@@ -51,17 +51,12 @@ exports.get_location_details = (req,res,next)=>{
 
 
 exports.update_routeCoordinates = (req,res,next)=>{
-    console.log("re body=>",req.body)
-        console.log("totalDistanceTravelled=>",totalDistanceTravelled)
         Tracking.updateOne(
             { _id : ObjectId(req.body.tracking_id)},
             {
                 $push : {
                     "routeCoordinates" : req.body.routeCoordinates,
                 },
-                $set : {
-                    "totalDistanceTravelled" : totalDistanceTravelled
-                }
             })
             .exec()
             .then(data=>{
