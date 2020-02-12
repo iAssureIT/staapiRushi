@@ -88,7 +88,8 @@ function totalDistance(newDistance){
               }
             ])
             .then(distanceTravelled=>{
-                console.log("distanceTravelled",distanceTravelled);
+                console.log("distanceTravelled",distanceTravelled.distance);
+                console.log("newDistance",newDistance);
                 var totalDistanceTravelled = distanceTravelled.distance + newDistance;
                 resolve(totalDistanceTravelled);
              })
