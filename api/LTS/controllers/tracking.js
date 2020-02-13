@@ -113,12 +113,12 @@ exports.end_location_details = (req,res,next)=>{
                 } 
             },
             { $unwind: "$routeCoordinates" },
-                {
-                    $group: {
-                      _id: null,
-                      distance: { $sum: "$routeCoordinates.distanceTravelled" }
-                    }
-            }
+            {
+                $group: {
+                  _id: null,
+                  distance: { $sum: "$routeCoordinates.distanceTravelled" }
+                }
+            },
             {
                 $project: 
                     {
