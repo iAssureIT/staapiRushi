@@ -112,26 +112,35 @@ exports.end_location_details = (req,res,next)=>{
                     "_id" : ObjectId(req.body.tracking_id)
                 } 
             },
+            { $unwind: "$routeCoordinates" },
+                {
+                    $group: {
+                      _id: null,
+                      distance: { $sum: "$routeCoordinates.distanceTravelled" }
+                    }
+            }
             {
                 $project: 
                     {
                         totalTime: 
                             {
                                 $subtract: [  new Date(req.body.endDateAndTime) ,"$startDateAndTime"]
-                            }, 
+                            },
+                        distance:distance     
                     } 
             },
 
         ])
     .exec()
     .then(data=>{
-        console.log("data",data[0].totalTime)
+        console.log("data",data)
         Tracking.updateOne(
         { "_id" : ObjectId(req.body.tracking_id)},
         {
             $set : {
-                "totalTime"      : data[0].totalTime,
-                "endDateAndTime" : req.body.endDateAndTime
+                "totalTime"                 : data[0].totalTime,
+                "endDateAndTime"            : req.body.endDateAndTime,
+                "totalDistanceTravelled"    : data[0].distance,
             }
         })
         .then(data=>{
