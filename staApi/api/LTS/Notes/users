@@ -1,0 +1,24 @@
+------------------------------------------------------------------------------------------
+                        1. Sign Up
+------------------------------------------------------------------------------------------
+1. Allow user to sign up i.e. Create User
+
+    Method      : POST
+    
+    URL         : /users/login
+
+    Input       : 
+                    {
+                        firstname   : String,
+                        lastname    : String,
+                        code        : String,
+                        email       : String,
+                        mobNumber   : String
+                    }
+
+    Output      : [
+                    {
+                        "competitionName": String,
+                        "competitionView": String
+                    }
+                  ]
